@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by BNW (Ministry of Justice) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cns="http://impa.lego.common.simple.gov.il" xmlns="http://impa.lego.generic.irr.gov.il" xmlns:ens="http://impa.lego.enum.simple.gov.il" targetNamespace="http://impa.lego.generic.irr.gov.il" elementFormDefault="qualified">
+	<xs:import namespace="http://impa.lego.common.simple.gov.il" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://impa.lego.enum.simple.gov.il" schemaLocation="enumarations.xsd"/>
+	<xs:element name="IrRegularReport" type="IrRegularReport"/>
+	<xs:complexType name="IrRegularReport">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element ref="cns:ReportMetaData"/>
+					<xs:element ref="IrRegularSourceMetaData"/>
+					<xs:element name="RelatedReports" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="RelatedReport" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element ref="IrregularReportEvent"/>
+				</xs:sequence>
+				<xs:attribute name="Version" type="cns:Version"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IrRegularAccount" type="IrRegularAccount"/>
+	<xs:complexType name="IrRegularAccount">
+		<xs:complexContent>
+			<xs:extension base="cns:Account">
+				<xs:sequence>
+					<xs:element name="Loans" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="cns:Loan" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RelatedAccounts" type="cns:ListOfRelations" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IrregularGMLAccount" type="IrregularGMLAccount"/>
+	<xs:complexType name="IrregularGMLAccount">
+		<xs:complexContent>
+			<xs:extension base="IrRegularAccount">
+				<xs:sequence>
+					<xs:group ref="cns:GMLAccount"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IrregularINSAccount" type="IrregularINSAccount"/>
+	<xs:complexType name="IrregularINSAccount">
+		<xs:complexContent>
+			<xs:extension base="IrRegularAccount">
+				<xs:sequence>
+					<xs:group ref="cns:INSAccount"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IrRegularOtherAccount" type="IrRegularOtherAccount"/>
+	<xs:complexType name="IrRegularOtherAccount">
+		<xs:complexContent>
+			<xs:extension base="cns:OtherAccount"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IrregularReportEvent" type="IrregularReportEvent"/>
+	<xs:complexType name="IrregularReportEvent">
+		<xs:complexContent>
+			<xs:extension base="cns:Event">
+				<xs:sequence>
+					<xs:element name="ReportingBriefContent" type="xs:string" minOccurs="0"/>
+					<xs:element name="ReportingContent" type="xs:string"/>
+					<xs:element name="ReportingReasons">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="ReportingReason" type="xs:integer" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="ReportingReasonDesc" type="xs:string" minOccurs="0"/>
+					<xs:element name="TransactionCommitted" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="AdditionalAuthoritiesCodes" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AdditionalAuthorityCode" type="xs:integer" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="AdditionalAuthoritiesDesc" type="xs:string" minOccurs="0"/>
+					<xs:element name="IrRegularAccounts" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="IrRegularAccount" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="IrRegularOtherAccounts" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="IrRegularOtherAccount" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="IrRegularTransactions" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="IrRegularTransaction" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element ref="cns:ListOfInvolvedEntities" minOccurs="0"/>
+					<xs:element name="CreditCards" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="cns:CreditCard" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="ReportKeyWordsCodes" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="ReportKeyWordCode" type="xs:integer" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="ReportKeyWordDesc" type="xs:string" minOccurs="0"/>
+					<xs:element name="IrRegularPledges" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="IrRegularPledge" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IrregularFRXAccount" type="IrregularFRXAccount"/>
+	<xs:complexType name="IrregularFRXAccount">
+		<xs:complexContent>
+			<xs:extension base="IrRegularAccount">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IrregularBankEventReason" type="IrregularBankEventReason"/>
+	<xs:complexType name="IrregularBankEventReason">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IrRegularSourceMetaData" type="IrRegularSourceMetaData"/>
+	<xs:complexType name="IrRegularSourceMetaData">
+		<xs:complexContent>
+			<xs:extension base="cns:SourceMetaData">
+				<xs:sequence>
+					<xs:element ref="ReportingPerson"/>
+					<xs:element name="ManagementCompanyID" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="RelatedReport">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="cns:BaseClass">
+					<xs:sequence>
+						<xs:element name="ReportNumber" type="xs:string"/>
+						<xs:element name="RelationsToEvent" type="cns:ListOfRelations" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ReportingPerson" type="ReportingPerson"/>
+	<xs:complexType name="ReportingPerson">
+		<xs:complexContent>
+			<xs:extension base="cns:Person">
+				<xs:sequence>
+					<xs:element name="ReportingPersonRole" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IrRegularTransaction" type="IrRegularTransaction"/>
+	<xs:complexType name="IrRegularTransaction">
+		<xs:complexContent>
+			<xs:extension base="cns:Transaction">
+				<xs:sequence>
+					<xs:element name="TransactionIDSource" type="xs:string" minOccurs="0"/>
+					<xs:element name="TransactionTypeDesc" type="xs:string" minOccurs="0"/>
+					<xs:element name="TransactionReportedBefore" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="GrantedEventID" type="xs:integer" minOccurs="0"/>
+					<xs:element name="GrantedEventIdDesc" type="xs:string" minOccurs="0"/>
+					<xs:element name="CourtFile" type="xs:string" minOccurs="0"/>
+					<xs:element name="SumInDestinationCurrency" type="cns:CurrencyInfo" minOccurs="0"/>
+					<xs:element name="EntityCommittedTransaction" type="cns:nonWhitespacesNorBlank" minOccurs="0"/>
+					<xs:element name="TransactionCommitted" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="IpAddress" type="xs:string" minOccurs="0"/>
+					<xs:element name="IMEI" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מזהה IMEI של המכשיר הנייד באמצעותו נעשתה הפעולה</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TXID" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>עבור פעולה של ארנק דיגיטלי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DefrayalCompanyLicenseID" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מזהה/מספר רישיון גורם סולק</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IrRegularEtransaction" type="IrRegularEtransaction"/>
+	<xs:complexType name="IrRegularEtransaction">
+		<xs:complexContent>
+			<xs:extension base="IrRegularTransaction">
+				<xs:sequence>
+					<xs:element name="SecondaryTransactionIDSource" type="xs:unsignedLong" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מזהה ראשי יהיה בשדה transactionIdsource  כאן ידווח המשני</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProviderTransactionDate" type="xs:date" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מועד ביצוע הפעולה אצל הספק</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProviderTransactionType" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>סוג פעולה שבוצעה אצל הספק : רגיל/תשלומים</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CreditSerialNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מספר סידורי שהוקצה לאשראי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CreditPurposeTypeID" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מטרת מתן האשראי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CreditPurposeTypeDesc" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מטרת מתן האשראי אחר</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CreditNumOfPaymentLeft" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מספר תשלומים של החזר האשראי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EstimatedCreditRefundDate" type="xs:date" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>תאריך סיום החזר אשראי משוער</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IrRegularFinancialAsset" type="IrRegularFinancialAsset" minOccurs="0"/>
+					<xs:element name="RelatedPledges" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="PledgeObjID" type="cns:nonWhitespacesNorBlank" minOccurs="1" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IrRegularFinancialAsset" type="IrRegularFinancialAsset"/>
+	<xs:complexType name="IrRegularFinancialAsset">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="RelatedAttachments" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AttachmentObjID" type="cns:nonWhitespacesNorBlank" minOccurs="1" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RelatedEntities" type="cns:ListOfRelations" minOccurs="0"/>
+					<xs:element name="RelatedAccounts" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>קשר בין חשבון לנכס פיננסי</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AccountObjID" type="cns:nonWhitespacesNorBlank" minOccurs="1" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="FinancialAssetReference" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מספר הנכס הפיננסי :  מספר כ.חיוב/שיק/שטר/פקדון/ כספת /ניע</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FinancialAssetName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>שם נכס פיננסי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FinancialAssetTypeID" type="xs:integer">
+						<xs:annotation>
+							<xs:documentation>קוד סוג נכס פיננסי של הנכס הפיננסי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FinancialAssetTypeDesc" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>סוג נכס פיננסי אחר</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FinancialAssetCountry" type="ens:ISOCountryIDSimp" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מדינת נכס פיננסי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FinancialAssetStatus" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>סטטוס נכס פיננסי - התקבל/נמסר-הועמד</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CreditCardDetails" type="cns:CreditCardDetails" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ChequeDetails" type="cns:ChequeDetails" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IrRegularPledge" type="IrRegularPledge"/>
+	<xs:complexType name="IrRegularPledge">
+		<xs:complexContent>
+			<xs:extension base="cns:Pledge"/>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

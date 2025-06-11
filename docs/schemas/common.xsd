@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by BNW (Ministry of Justice) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cns="http://impa.lego.common.simple.gov.il" xmlns:ens="http://impa.lego.enum.simple.gov.il" targetNamespace="http://impa.lego.common.simple.gov.il" elementFormDefault="qualified">
+	<xs:import namespace="http://impa.lego.enum.simple.gov.il" schemaLocation="enumarations.xsd"/>
+	<xs:simpleType name="Version">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d+(.\d+){0,1}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ElementTypeIntegerPositiveValue">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="2147483647"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="BaseClass" type="cns:BaseClass"/>
+	<xs:complexType name="BaseClass">
+		<xs:sequence>
+			<xs:element name="ObjID" type="cns:nonWhitespacesNorBlank" minOccurs="0"/>
+			<xs:element name="ReporterObjID" type="cns:nonWhitespacesNorBlank" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Email" type="cns:Email"/>
+	<xs:complexType name="Email">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="EmailType" type="xs:integer" minOccurs="0"/>
+					<xs:element name="EmailAddress" type="xs:string" minOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Attachment" type="cns:Attachment"/>
+	<xs:complexType name="Attachment">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="FileName" type="xs:string"/>
+					<xs:element name="DocumentType" type="xs:integer" minOccurs="0"/>
+					<xs:element name="DocumentTypeDesc" type="xs:string" minOccurs="0"/>
+					<xs:element name="NumberOfPages" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+					<xs:element name="Comments" type="xs:string" minOccurs="0"/>
+					<xs:element name="Classification" type="xs:integer" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Address" type="cns:Address"/>
+	<xs:complexType name="Address">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="AddressType" type="xs:integer" minOccurs="0"/>
+					<xs:element name="CountryID" type="ens:ISOCountryIDSimp" minOccurs="0"/>
+					<xs:element name="CountryName" type="xs:string" minOccurs="0"/>
+					<xs:element name="StateCode" type="xs:string" minOccurs="0"/>
+					<xs:element name="StateName" type="xs:string" minOccurs="0"/>
+					<xs:element name="RegionCode" type="xs:string" minOccurs="0"/>
+					<xs:element name="RegionName" type="xs:string" minOccurs="0"/>
+					<xs:element name="CityCode" type="xs:integer" minOccurs="0"/>
+					<xs:element name="CityName" type="xs:string" minOccurs="0"/>
+					<xs:element name="StreetCode" type="xs:integer" minOccurs="0"/>
+					<xs:element name="StreetName" type="xs:string" minOccurs="0"/>
+					<xs:element name="POBox" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+					<xs:element name="NewZIPCode" type="xs:string" minOccurs="0"/>
+					<xs:element name="ZIPCode" type="xs:string" minOccurs="0"/>
+					<xs:element name="HouseNumber" type="xs:string" minOccurs="0"/>
+					<xs:element name="AppartmentNumber" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Asset" type="cns:Asset"/>
+	<xs:complexType name="Asset">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CurrencyInfo" type="cns:CurrencyInfo"/>
+	<xs:complexType name="CurrencyInfo">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="CurrencyType" type="ens:ISOCurrencyCodeSimp"/>
+					<xs:element name="Sum" type="xs:integer" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Entity" type="cns:Entity"/>
+	<xs:complexType name="Entity">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="LatinName" type="xs:string" minOccurs="0"/>
+					<xs:element name="IDType" type="xs:integer" minOccurs="0"/>
+					<xs:element name="IDNumber" type="xs:string" minOccurs="0"/>
+					<xs:element name="IDCountry" type="ens:ISOCountryIDSimp" minOccurs="0"/>
+					<xs:element name="IDTypeDesc" type="xs:string" minOccurs="0"/>
+					<xs:element name="Addresses" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="cns:Address" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="Phones" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="cns:Phone" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="Emails" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="cns:Email" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="EntityComment" type="xs:string" minOccurs="0"/>
+					<xs:element name="ResidenceStatus" type="xs:integer" minOccurs="0"/>
+					<xs:element name="ResidenceStatusDesc" type="xs:string" minOccurs="0"/>
+					<xs:element name="RelationsToEvent" type="cns:ListOfRelations" minOccurs="0"/>
+					<xs:element name="RelatedEntities" type="cns:ListOfRelations" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="minimal" type="xs:boolean"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Person" type="cns:Person"/>
+	<xs:complexType name="Person">
+		<xs:complexContent>
+			<xs:extension base="cns:Entity">
+				<xs:sequence>
+					<xs:element name="LatinSurname" type="xs:string" minOccurs="0"/>
+					<xs:element name="FirstName" type="xs:string" minOccurs="0"/>
+					<xs:element name="LastName" type="xs:string" minOccurs="0"/>
+					<xs:element name="BirthDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="EntityGender" type="xs:integer" minOccurs="0"/>
+					<xs:element name="EntityGenderDesc" type="xs:string" minOccurs="0"/>
+					<xs:element name="Profession" type="xs:string" minOccurs="0"/>
+					<xs:element name="ProfessionTypeCodes" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="ProfessionTypeCode" type="xs:string" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Corporate" type="cns:Corporate"/>
+	<xs:complexType name="Corporate">
+		<xs:complexContent>
+			<xs:extension base="cns:Entity">
+				<xs:sequence>
+					<xs:element name="Name" type="xs:string" minOccurs="0"/>
+					<xs:element name="FoundationDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="CorporateTypeDescription" type="xs:string" minOccurs="0"/>
+					<xs:element name="CorporateFieldDesc" type="xs:string" minOccurs="0"/>
+					<xs:element name="ControllingShareholderExist" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Event" type="cns:Event"/>
+	<xs:complexType name="Event">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="EventDateTime" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="EventComment" type="xs:string" minOccurs="0"/>
+					<xs:element name="Attachments" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="cns:Attachment" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="FinancialEvent" type="cns:FinancialEvent"/>
+	<xs:complexType name="FinancialEvent">
+		<xs:complexContent>
+			<xs:extension base="cns:Event"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="AccountBase" type="cns:AccountBase"/>
+	<xs:complexType name="AccountBase">
+		<xs:complexContent>
+			<xs:extension base="cns:Asset">
+				<xs:sequence>
+					<xs:element name="FinancialValue" type="cns:CurrencyInfo" minOccurs="0"/>
+					<xs:element name="RelatedEntities" type="cns:ListOfRelations" minOccurs="0"/>
+					<xs:element name="RelationsToEvent" type="cns:ListOfRelations" minOccurs="0"/>
+					<xs:element name="RelatedTransactions" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="TransactionObjID" type="cns:nonWhitespacesNorBlank" minOccurs="1" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="minimal" type="xs:boolean"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Account" type="cns:Account"/>
+	<xs:complexType name="Account">
+		<xs:complexContent>
+			<xs:extension base="cns:AccountBase">
+				<xs:sequence>
+					<xs:element name="FinancialInstituteType" type="xs:integer"/>
+					<xs:element name="FinancialInstituteID" type="xs:integer"/>
+					<xs:element name="FinancialInstituteName" type="xs:string" minOccurs="0"/>
+					<xs:element name="FinancialInstituteCountry" type="ens:ISOCountryIDSimp" minOccurs="0"/>
+					<xs:element name="BranchID" type="xs:integer" minOccurs="0"/>
+					<xs:element name="AccountNum" type="xs:string" minOccurs="0"/>
+					<xs:element name="AccountName" type="xs:string" minOccurs="0"/>
+					<xs:element name="AccountType" type="xs:integer" minOccurs="0"/>
+					<xs:element name="AccountTypeDescription" type="xs:string" minOccurs="0"/>
+					<xs:element name="AccountOpenDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="AccountComments" type="xs:string" minOccurs="0"/>
+					<xs:element name="BranchAddress" type="cns:Address" minOccurs="0"/>
+					<xs:element name="MailDeliveryAddress" type="cns:Address" minOccurs="0"/>
+					<xs:element name="AccountCreditLine" type="xs:integer" minOccurs="0"/>
+					<xs:element name="RelatedCreditCards" type="cns:ListOfRelations" minOccurs="0"/>
+					<xs:element name="AccountStatus" type="xs:integer" minOccurs="0"/>
+					<xs:element name="AccountStatusDescription" type="xs:string" minOccurs="0"/>
+					<xs:element name="AccountStatusDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="AccountClassify" type="xs:integer" minOccurs="0"/>
+					<xs:element name="AccountClassifyDescription" type="xs:string" minOccurs="0"/>
+					<xs:element name="PrivateAccountStatusCode" type="xs:integer" minOccurs="0"/>
+					<xs:element name="PrivateAccountStatusDescription" type="xs:string" minOccurs="0"/>
+					<xs:element name="PrivateBanking" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="AccountClosingDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="AccountClosingReason" type="xs:string" minOccurs="0"/>
+					<xs:element name="MoneyTransferCode" type="xs:string" minOccurs="0"/>
+					<xs:element name="MoneyTransferCodeType" type="xs:integer" minOccurs="0"/>
+					<xs:element name="MoneyTransferCodeTypeDesc" type="xs:string" minOccurs="0"/>
+					<xs:element name="BusinessCategoryCodes" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="BusinessCategoryCode" type="xs:integer" minOccurs="1" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="BusinessCategoryCodeDesc" type="xs:string" minOccurs="0"/>
+					<xs:element name="BeneficiaryDeclareExcemtion" type="xs:integer" minOccurs="0"/>
+					<xs:element name="Balance" type="xs:string" minOccurs="0"/>
+					<xs:element name="BalanceDate" type="xs:date" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="INSAccount" type="cns:INSAccount"/>
+	<xs:complexType name="INSAccount">
+		<xs:complexContent>
+			<xs:extension base="cns:Account">
+				<xs:sequence>
+					<xs:group ref="cns:INSAccount"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:group name="INSAccount">
+		<xs:sequence>
+			<xs:element name="AccountCoverSum" type="xs:string" minOccurs="0"/>
+			<xs:element name="PolicySigningDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="PolicyClosingDate" type="xs:date" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="GMLAccount" type="cns:GMLAccount"/>
+	<xs:complexType name="GMLAccount">
+		<xs:complexContent>
+			<xs:extension base="cns:Account">
+				<xs:sequence>
+					<xs:group ref="cns:GMLAccount"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:group name="GMLAccount">
+		<xs:sequence>
+			<xs:element name="AccountMortgage" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="ManagementCorporationID" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+			<xs:element name="ManagementCorporationName" type="xs:string" minOccurs="0"/>
+			<xs:element name="CourseFundType" type="xs:integer" minOccurs="0"/>
+			<xs:element name="ColleagueType" type="xs:integer" minOccurs="0"/>
+			<xs:element name="Seniority" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+			<xs:element name="LastRevaluationDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="PossibleWithdrawalDate" type="xs:date" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="OtherAccount" type="cns:OtherAccount"/>
+	<xs:complexType name="OtherAccount">
+		<xs:complexContent>
+			<xs:extension base="cns:AccountBase">
+				<xs:sequence>
+					<xs:element name="FinancialInstituteType" type="xs:integer">
+						<xs:annotation>
+							<xs:documentation>סוג סקטור (source type)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FinancialInstituteID" type="xs:integer">
+						<xs:annotation>
+							<xs:documentation>sourceid</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FinancialInstituteName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>שם מוסד פיננסי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FinancialInstituteNum" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מזהה מוסד פיננסי - נתון מחרוזתי להזנה ידנית</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FinancialInstituteCountry" type="ens:ISOCountryIDSimp" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מדינה בה מתנהל החשבוןי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FinancialInstituteAddress" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>כתובת ראשית של מוסד פיננסי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BranchName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>שם סניף</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AccountNum" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מספר חשבון / ארנק דיגיטלי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AccountName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>שם חשבון/ארנק דיגיטלי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AccountType" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>קוד סוג חשבון/ארנק דיגיטלי</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AccountTypeDescription" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>סוג חשבון/ארנק דיגיטלי אחר</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AccountComments" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>הערות</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BranchAddress" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>כתובת סניף</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MoneyTransferCode" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מספר IBAN\BIC</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MoneyTransferCodeType" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>בחירת סוג קוד העברת כספים (IBAN\BIC)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MoneyTransferCodeTypeDesc" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>סוג קוד העברת כספים אחר</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Phone" type="cns:Phone"/>
+	<xs:complexType name="Phone">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="PhoneType" type="xs:integer" minOccurs="0"/>
+					<xs:element name="Number" type="xs:string"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="SourceMetaData" type="cns:SourceMetaData"/>
+	<xs:complexType name="SourceMetaData">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="SourceType" type="xs:integer"/>
+					<xs:element name="SourceId" type="cns:ElementTypeIntegerPositiveValue"/>
+					<xs:element name="BranchId" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+					<xs:element name="AuthenticationString" type="xs:string" minOccurs="0"/>
+					<xs:element name="SourceName" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ReportMetaData" type="cns:ReportMetaData"/>
+	<xs:complexType name="ReportMetaData">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="ReportNumber" type="xs:string"/>
+					<xs:element name="ReportType" type="xs:integer" minOccurs="0"/>
+					<xs:element name="ReportDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="RecieveDate" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="ReportInstanceReference" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+					<xs:element name="ReportDescription" type="xs:string" minOccurs="0"/>
+					<xs:element name="ReportStatus" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ReportClassification" type="xs:integer"/>
+					<xs:element name="GemTypeID" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>קוד סוג אבן יקרה - רלוונטי לסוחרים באבנים יקרות</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GemTypeDesc" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>סוג אבן יקרה אחר - רלוונטי לסוחרים באבנים יקרות</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ListOfInvolvedEntities" type="cns:ListOfInvolvedEntities"/>
+	<xs:complexType name="ListOfInvolvedEntities">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="Persons" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="cns:Person" minOccurs="1" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="Corporates" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="cns:Corporate" minOccurs="1" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Transaction" type="cns:Transaction"/>
+	<xs:complexType name="Transaction">
+		<xs:complexContent>
+			<xs:extension base="cns:FinancialEvent">
+				<xs:sequence>
+					<xs:element name="TransactionType" type="xs:integer" minOccurs="0"/>
+					<xs:element name="SumInNIS" type="cns:CurrencyInfo" minOccurs="0"/>
+					<xs:element name="SumInOriginalCurrency" type="cns:CurrencyInfo" minOccurs="0"/>
+					<xs:element name="RelatedEntities" type="cns:ListOfRelations" minOccurs="0"/>
+					<xs:element name="RelationsToEvent" type="cns:ListOfRelations" minOccurs="0"/>
+					<xs:element name="SumInVirtualCurrency" type="cns:VirtualCurrencyInfo" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Relation" type="cns:Relation"/>
+	<xs:simpleType name="nonWhitespacesNorBlank">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Relation">
+		<xs:sequence>
+			<xs:element name="RelationTypeID" type="xs:integer"/>
+			<xs:element name="RelatedObjID" type="cns:nonWhitespacesNorBlank" minOccurs="1"/>
+			<xs:element name="RelationTypeDesc" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ListOfRelations"/>
+	<xs:complexType name="ListOfRelations">
+		<xs:sequence>
+			<xs:element name="Relation" type="cns:Relation" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CreditCard" type="cns:CreditCard"/>
+	<xs:complexType name="CreditCard">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="CreditCardNumber" type="xs:string" minOccurs="0"/>
+					<xs:element name="CreditCardDetails" type="cns:CreditCardDetails" minOccurs="0"/>
+					<xs:element name="RelatedEntities" type="cns:ListOfRelations" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation> סוג קשר lov_relation_types_credit_ent ברגילים קבוע ערך 7 בעל כרטיס חיוב -קבוע ללא בחירה באקליפטוס?</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RelationsToEvent" type="cns:ListOfRelations" minOccurs="1"/>
+					<xs:element name="RelatedAccounts" type="cns:ListOfRelations" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>סוג קשר ללא בחירה באקליפטוס אך נשמר 0 כי השדה חובה, בפועל השדה לא מתמפה לשחור לבן </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Loan" type="cns:Loan"/>
+	<xs:complexType name="Loan">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="LoanSum" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+					<xs:element name="SeizureSum" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+					<xs:element name="LoanDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="LoanEndDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="LoanSerialNum" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+					<xs:element name="NumOfPaymentsLeft" type="cns:ElementTypeIntegerPositiveValue" minOccurs="0"/>
+					<xs:element name="IsRecyclingExistsLoan" type="xs:boolean" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="VirtualCurrencyInfo" type="cns:VirtualCurrencyInfo"/>
+	<xs:complexType name="VirtualCurrencyInfo">
+		<xs:complexContent>
+			<xs:extension base="cns:BaseClass">
+				<xs:sequence>
+					<xs:element name="VirtualCurrencyUnits" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation> צריך להיות בפורמט של 15.18 - מה הTYPE שצריך להגדיר לו בXSD?</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="VirtualCurrencySymbol" type="ens:ISOVirtualCurrencyCodeSimp" minOccurs="0"/>
+					<xs:element name="VirtualCurrencyExchangeRate" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation> צריך להיות בפורמט של 15.18 - מה הTYPE שצריך להגדיר לו בXSD?</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CarDetails" type="cns:CarDetails"/>
+	<xs:complexType name="CarDetails">
+		<xs:sequence>
+			<xs:element name="Manufacturer" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>שם יצרן</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RealEstateDetails" type="cns:RealEstateDetails"/>
+	<xs:complexType name="RealEstateDetails">
+		<xs:sequence>
+			<xs:element name="CountryID" type="ens:ISOCountryIDSimp" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>מדינה</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CityID" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>קוד ישוב</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CityName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>שם ישוב /ישוב אחר במידה ונבחר אחר בקוד</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StreetID" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>קוד רחוב</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StreetName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>שם רחוב/רחוב אחר במידה ונבחר אחר בקוד</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HouseNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>מספר בית</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Block" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>גוש</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Parcel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>חלקה</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubParcel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>תת חלקה</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RightTypeID" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>סוג זכאות בנכס</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RightTypeDesc" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>סוג זכאות אחר</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Pledge" type="cns:Pledge"/>
+	<xs:complexType name="Pledge">
+		<xs:complexContent>
+			<xs:extension base="cns:Asset">
+				<xs:sequence>
+					<xs:element name="RelatedEntities" type="cns:ListOfRelations" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>קשר ישות -בטוחה</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RelatedAccounts" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>קשר חשבון -בטוחה</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AccountObjID" type="cns:nonWhitespacesNorBlank" minOccurs="1" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="PledgeTypeID" type="xs:integer">
+						<xs:annotation>
+							<xs:documentation>סוג בטוחה</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PledgeTypeDesc" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>סוג בטוחה אחר</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SecondaryPledgeTypeID" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation> סוג בטוחה משני לדוגמא: : סוג רכב, סוג נדל"ן</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SecondaryPledgeTypeDesc" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation> סוג בטוחה משני אחר</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PledgeNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>מספר בטוחה (לדוגמא- מספר רישוי רכב/ מספר צ'ק)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Year" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>שנת רישום</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PledgeValue" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>שווי כספי מוערך בש"ח</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Remarks" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>פרטים נוספים</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RelatedAttachments" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>צרופות לבטוחה</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AttachmentObjID" type="cns:nonWhitespacesNorBlank" minOccurs="1" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element ref="cns:CarDetails" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>פרטי בטוחה מסוג רכב</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="cns:RealEstateDetails" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>פרטי בטוחה מסוג נדל"ן</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="cns:ChequeDetails" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>פרטי בטוחה מסוג שיק</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="transRelated" type="xs:boolean"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CreditCardDetails" type="cns:CreditCardDetails"/>
+	<xs:complexType name="CreditCardDetails">
+		<xs:sequence>
+			<xs:element name="CreditCardBrandID" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>קוד מותג כרטיס החיוב</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CreditCardBrandDesc" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>מותג כרטיס חיוב - אחר</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CreditCardCountryID" type="ens:ISOCountryIDSimp" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>מדינה שהנפיקה את כרטיס החיוב</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CreditCardRemark" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>הערות לכרטיס חיוב</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ChequeDetails" type="cns:ChequeDetails"/>
+	<xs:complexType name="ChequeDetails">
+		<xs:sequence>
+			<xs:element name="ChequePaymentDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>תאריך פרעון השיק</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NumOfBillTransfers" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>מספר הסבות בשטר</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

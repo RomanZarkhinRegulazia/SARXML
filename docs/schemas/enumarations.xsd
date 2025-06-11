@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by BNW (Ministry of Justice) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ens="http://impa.lego.enum.simple.gov.il" xmlns:cns="http://impa.lego.common.simple.gov.il" targetNamespace="http://impa.lego.enum.simple.gov.il" elementFormDefault="qualified">
+	<xs:import namespace="http://impa.lego.common.simple.gov.il" schemaLocation="common.xsd"/>
+	<xs:simpleType name="ISOCurrencyCodeSimp">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Za-z]{3}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ISOVirtualCurrencyCodeSimp">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ISOCountryIDSimp">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Za-z]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

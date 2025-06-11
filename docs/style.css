@@ -1,0 +1,22 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+fieldset {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+legend {
+  font-weight: bold;
+}
+.form-actions {
+  margin-top: 20px;
+}
+.error-message {
+  color: red;
+}
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
