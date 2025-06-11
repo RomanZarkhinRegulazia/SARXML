@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Irregular Report Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="languageToggle">
+    <button type="button" onclick="switchLanguage('en')">English</button>
+    <button type="button" onclick="switchLanguage('he')">\u05e2\u05d1\u05e8\u05d9\u05ea</button>
+  </div>
+
+  <input type="file" id="xmlFileInput" accept=".xml" />
+  <form id="irregularReportForm">
+    <fieldset id="section-source">
+      <legend data-i18n="section1_title">Reporting Entity Details</legend>
+      <label data-i18n="sourceId_label" for="sourceId">Reporting Entity ID</label>
+      <input id="sourceId" name="sourceId" required />
+      <label data-i18n="sourceName_label" for="sourceName">Reporting Entity Name</label>
+      <input id="sourceName" name="sourceName" required />
+      <label data-i18n="branchId_label" for="branchId">Branch ID</label>
+      <input id="branchId" name="branchId" required />
+      <fieldset>
+        <legend data-i18n="reporter_title">Reporting Person</legend>
+        <label data-i18n="firstName_label" for="reporterFirstName">First Name</label>
+        <input id="reporterFirstName" required />
+        <label data-i18n="lastName_label" for="reporterLastName">Last Name</label>
+        <input id="reporterLastName" required />
+        <label data-i18n="phone_label" for="reporterPhone">Phone</label>
+        <input id="reporterPhone" required />
+        <label data-i18n="email_label" for="reporterEmail">Email</label>
+        <input id="reporterEmail" type="email" />
+        <label data-i18n="reporterRole_label" for="reporterRole">Role</label>
+        <input id="reporterRole" required />
+      </fieldset>
+    </fieldset>
+
+    <fieldset id="section-metadata">
+      <legend data-i18n="section2_title">Report Metadata</legend>
+      <label data-i18n="reportNumber_label" for="reportNumber">Report Number</label>
+      <input id="reportNumber" required />
+      <label data-i18n="reportDate_label" for="reportDate">Report Date</label>
+      <input id="reportDate" type="date" required />
+      <label data-i18n="reportStatus_label" for="reportStatus">Report Status</label>
+      <select id="reportStatus">
+        <option value="1">New</option>
+        <option value="2">Supplement</option>
+        <option value="3">Continuation</option>
+        <option value="4">Related</option>
+      </select>
+    </fieldset>
+
+    <fieldset id="section-related">
+      <legend data-i18n="section3_title">Related Reports</legend>
+      <div id="relatedContainer"></div>
+      <button type="button" onclick="addRelatedReport()" data-i18n="add_related">Add Related Report</button>
+    </fieldset>
+
+    <fieldset id="section-entities">
+      <legend data-i18n="section4_title">Involved Entities</legend>
+      <div id="entitiesContainer"></div>
+      <button type="button" onclick="addPerson()" data-i18n="add_person">Add Person</button>
+      <button type="button" onclick="addCorporate()" data-i18n="add_corporate">Add Corporate</button>
+    </fieldset>
+
+    <fieldset id="section-accounts">
+      <legend data-i18n="section5_title">Associated Accounts</legend>
+      <div id="accountsContainer"></div>
+      <button type="button" onclick="addAccount()" data-i18n="add_account">Add Account</button>
+    </fieldset>
+
+    <div class="form-actions">
+      <button type="button" id="btn-validate" data-i18n="validate_button" onclick="validateXml()">Validate XML</button>
+      <button type="button" id="btn-download-xml" data-i18n="download_xml" onclick="downloadXml()">Download XML</button>
+      <button type="button" id="btn-download-pdf" data-i18n="download_pdf" onclick="downloadPdfSummary()">Download PDF</button>
+      <button type="reset" data-i18n="reset_button">Reset</button>
+    </div>
+  </form>
+
+  <script src="libs/jspdf.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
